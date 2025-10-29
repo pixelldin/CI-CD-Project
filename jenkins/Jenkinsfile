@@ -1,0 +1,73 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKERHUB_USER = "YOUR_DOCKER_HUB_USER"
+        IMAGE_NAME = "sample-app"
+        DOCKER_HOST = "DOCKER_HOST_IP"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/YOUR_GITHUB_USER/your-repo.git'
+            }
+        }
+
+        stage('Build WAR') {
+            steps {
+                sh 'mvn clean package'
+            }
+            post {
+                success {
+                    archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh '''
+                    docker build -t $DOCKERHUB_USER/$IMAGE_NAME:latest .
+                    '''
+                }
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                    sh '''
+                    echo "$PASS" | docker login -u "$USER" --password-stdin
+                    docker push $DOCKERHUB_USER/$IMAGE_NAME:latest
+                    docker logout
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy to Docker Host') {
+            steps {
+                script {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no ec2-user@$DOCKER_HOST \\
+                        'docker pull $DOCKERHUB_USER/$IMAGE_NAME:latest && \\
+                         docker stop sample || true && \\
+                         docker rm sample || true && \\
+                         docker run -d --name sample -p 8080:8080 $DOCKERHUB_USER/$IMAGE_NAME:latest'
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Deployment complete. App running at http://$DOCKER_HOST:8080"
+        }
+        failure {
+            echo "Pipeline failed. Check logs."
+        }
+    }
+}

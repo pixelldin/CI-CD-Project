@@ -1,0 +1,76 @@
+# === Terraform ===
+*.tfstate
+*.tfstate.backup
+.crash
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+override.tf
+override.tf.json
+terraform.tfvars
+
+# === Jenkins ===
+# Ignore workspace data, secrets, and temp build files
+jenkins/workspace/
+jenkins/secrets/
+jenkins/jobs/
+jenkins/plugins/
+jenkins/tmp/
+jenkins/war/
+*.log
+
+# === Maven ===
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+# === Docker ===
+*.tar
+*.pid
+.dockerignore
+docker-compose.override.yml
+docker-compose.dev.yml
+.env
+
+# === Node / Frontend === (if you ever add a frontend)
+node_modules/
+dist/
+build/
+npm-debug.log*
+
+# === System / IDE ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# === Logs ===
+logs/
+*.log
+*.out
+*.err
+
+# === Credentials / Keys ===
+*.pem
+*.key
+*.crt
+*.csr
+*.pub
+*.env
+.env.local
+secrets.yaml
+secrets.json
+
+# === Misc ===
+*.zip
+*.tar.gz
+*.7z
+*.bak
+*.old
+*.retry
