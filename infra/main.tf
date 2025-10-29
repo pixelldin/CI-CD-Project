@@ -1,6 +1,4 @@
-########################################
 # Networking: VPC, single public subnet
-########################################
 resource "aws_vpc" "this" {
   cidr_block = var.vpc_cidr
   tags = { Name = "${var.project}-vpc" }
@@ -31,10 +29,7 @@ resource "aws_route_table_association" "public_assoc" {
   subnet_id      = aws_subnet.public.id
   route_table_id = aws_route_table.public.id
 }
-
-########################################
 # IAM Role & Instance Profile (SSM)
-########################################
 data "aws_iam_policy_document" "ec2_assume" {
   statement {
     effect = "Allow"
@@ -62,9 +57,7 @@ resource "aws_iam_instance_profile" "instance_profile" {
   role = aws_iam_role.instance_role.name
 }
 
-########################################
 # Security Groups
-########################################
 # Allow HTTP from anywhere (for static site)
 resource "aws_security_group" "http_sg" {
   name        = "${var.project}-http-sg"
@@ -111,10 +104,9 @@ resource "aws_security_group" "ssh_sg" {
   tags = { Name = "${var.project}-ssh-sg" }
 }
 
-########################################
 # EC2 Instances: Git, Jenkins, Docker
 # Use templatefile() to render user_data
-########################################
+
 locals {
   common_userdata_vars = {
     project = var.project
