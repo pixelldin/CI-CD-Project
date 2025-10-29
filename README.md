@@ -2,20 +2,20 @@
 
 This repository details a complete, production-grade CI/CD pipeline project. The infrastructure is defined entirely as code using Terraform, ensuring high availability and scalability via an **Application Load Balancer (ALB)** and **Auto Scaling Group (ASG)**.
 
-## 🚀 Interactive Pipeline Explorer
+## 🚀 Interactive Pipeline Explorer visual link : 
 
 As requested, here is the live link to the interactive flow diagram that visually explains every stage and tool in this project.
 
-*(Replace the placeholder link above with your actual GitHub Pages URL after deployment.)*
+https://pixelldin.github.io/Interactive-page/
 
 ## Project Architecture Overview
 
 The project follows a robust, multi-stage, multi-tool approach:
 
-1. **Infrastructure Provisioning:** Terraform creates a secure **VPC** and all networking components, including a dedicated **Jenkins Server** and the **ALB/ASG** for the application tier.
-2. **Continuous Integration (CI):** Code is pushed to GitHub, triggering **Jenkins**. Jenkins uses **Maven** to build the Java web application (`.jsp` to `.war`).
-3. **Containerization:** The built artifact is packaged into a **Docker** image.
-4. **Continuous Delivery (CD):** Jenkins executes a deployment script (via SSH/SSM) that targets all instances in the **ASG**, pulling the new Docker image and running it, achieving zero-downtime deployment.
+1. Infrastructure Provisioning: Terraform creates a secure VPC and all networking components, including a dedicated **Jenkins Server** and the **ALB/ASG** for the application tier.
+2. Continuous Integration (CI): Code is pushed to GitHub, triggering **Jenkins**. Jenkins uses Maven to build the Java web application (`.jsp` to `.war`).
+3. Containerization: The built artifact is packaged into a Docker image.
+4. Continuous Delivery (CD): Jenkins executes a deployment script (via SSH/SSM) that targets all instances in the **ASG**, pulling the new Docker image and running it, achieving zero-downtime deployment.
 
 ### 🛠️ Key Components & Tools
 
