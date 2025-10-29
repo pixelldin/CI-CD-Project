@@ -71,7 +71,7 @@ Navigate to the `infra` directory.
 1. In Jenkins, create a new item (Pipeline) named `webapp-cicd`.
 2. Under the Pipeline definition, choose **Pipeline script from SCM**.
 3. **SCM:** Git
-4. **Repository URL:** `https://github.com/your-username/your-repo-name.git`
+4. **Repository URL:** `https://github.com/pixelldin/CI-CD-Project`
 5. **Script Path:** `jenkins/Jenkinsfile`
 
 Once set up, a code push to the `main` branch will automatically execute the entire CI/CD pipeline!
