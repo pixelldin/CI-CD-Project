@@ -1,5 +1,8 @@
 # CI/CD Pipeline Project: Terraform, Jenkins, Docker, AWS (ALB/ASG)
 
+<img width="1677" height="682" alt="image" src="https://github.com/user-attachments/assets/08002181-6d38-4831-aafa-c19d809c4cd4" />
+
+
 This repository details a complete, production-grade CI/CD pipeline project. The infrastructure is defined entirely as code using Terraform, ensuring high availability and scalability via an **Application Load Balancer (ALB)** and **Auto Scaling Group (ASG)**.
 
 ## 🚀 Interactive Pipeline Explorer visual link : 
